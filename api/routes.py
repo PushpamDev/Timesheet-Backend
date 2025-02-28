@@ -6,7 +6,7 @@ from api.extensions import db  # ✅ Import db from extensions
 routes = Blueprint("routes", __name__)
 
 # ✅ GET All Timesheets (For Today)
-@routes.route("/api/timesheet/daily", methods=["GET"])
+@routes.route("/timesheet/daily", methods=["GET"])
 def get_timesheets():
     employee_id = request.args.get("employee_id")  # Get employee ID from request
 
@@ -19,7 +19,7 @@ def get_timesheets():
 
 
 # ✅ ADD New Timesheet Entry
-@routes.route("/api/timesheet/daily", methods=["POST"])
+@routes.route("/timesheet/daily", methods=["POST"])
 def add_timesheet():
     data = request.json
     if not data:
@@ -38,7 +38,7 @@ def add_timesheet():
     return jsonify(new_entry.to_dict()), 201
 
 # ✅ UPDATE Existing Timesheet Entry
-@routes.route("/api/timesheet/daily/<int:id>", methods=["PUT"])
+@routes.route("/timesheet/daily/<int:id>", methods=["PUT"])
 def update_timesheet(id):
     entry = TimesheetEntry.query.get(id)
     if not entry:
@@ -58,7 +58,7 @@ def update_timesheet(id):
     return jsonify(entry.to_dict()), 200
 
 # ✅ DELETE Timesheet Entry
-@routes.route("/api/timesheet/daily/<int:id>", methods=["DELETE"])
+@routes.route("/timesheet/daily/<int:id>", methods=["DELETE"])
 def delete_timesheet(id):
     entry = TimesheetEntry.query.get(id)
     if not entry:
@@ -69,13 +69,13 @@ def delete_timesheet(id):
     return jsonify({"message": "Timesheet entry deleted successfully!"}), 200
 
 # ✅ GET All Projects
-@routes.route("/api/projects", methods=["GET"])
+@routes.route("/projects", methods=["GET"])
 def get_projects():
     projects = Project.query.all()
     return jsonify([project.to_dict() for project in projects]), 200
 
 # ✅ ADD New Project
-@routes.route("/api/projects", methods=["POST"])
+@routes.route("/projects", methods=["POST"])
 def add_project():
     data = request.json
     if not data:
@@ -94,7 +94,7 @@ def add_project():
     return jsonify(new_project.to_dict()), 201
 
 # ✅ UPDATE Project
-@routes.route("/api/projects/<int:id>", methods=["PUT"])
+@routes.route("/projects/<int:id>", methods=["PUT"])
 def update_project(id):
     project = Project.query.get(id)
     if not project:
@@ -114,7 +114,7 @@ def update_project(id):
     return jsonify(project.to_dict()), 200
 
 # ✅ DELETE Project
-@routes.route("/api/projects/<int:id>", methods=["DELETE"])
+@routes.route("/projects/<int:id>", methods=["DELETE"])
 def delete_project(id):
     project = Project.query.get(id)
     if not project:
