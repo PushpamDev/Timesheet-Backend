@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from api.extensions import db  # ✅ Import from extensions
 from api.routes import routes  # ✅ Import Blueprint only after initializing db
+import os
 
 app = Flask(__name__)
 CORS(app)  # ✅ Enable CORS for frontend
@@ -18,6 +19,5 @@ db.init_app(app)
 app.register_blueprint(routes)
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()  # ✅ Ensure tables are created
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
